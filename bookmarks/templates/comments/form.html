@@ -1,0 +1,15 @@
+{% if user.is_authenticated %}
+{% get_comment_form for bookmarks.share  as form %}
+  <form action="/comments/post/" method="POST">
+    {% csrf_token %}
+    {{ form.object_pk }}
+    <p><label>Post a comment:</label><br />
+    <textarea name="comment" rows="10"
+      cols="60"></textarea></p>
+    <input type="hidden" name="target" value="{{ target }}" />
+    <input type="hidden" name="gonzo" value="{{ hash }}" />
+    <input type="submit" name="post" value="submit comment" />
+  </form>
+{% else %} 
+  <p>Please <a href="/login/">log in</a> to post comments.</p>
+{% endif %}
